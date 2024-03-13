@@ -6,6 +6,7 @@ const Button = ({
   type = "button",
   bgColor = "primary",
   children,
+  full = false,
 }) => {
   let bgClassName = "bg-primary";
   switch (bgColor) {
@@ -22,7 +23,7 @@ const Button = ({
     <button
       type={type}
       onClick={onClick}
-      className={`py-4 px-7 rounded-lg w-full mt-auto flex justify-center text-xl ${className} ${bgClassName}`}
+      className={`py-4 px-7 rounded-lg w-auto mt-auto ${ full ? "w-full" : ""} ${className} ${bgClassName}`}
     >
       {children}
     </button>

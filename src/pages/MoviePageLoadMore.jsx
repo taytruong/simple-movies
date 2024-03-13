@@ -6,6 +6,7 @@ import useDebounce from "../hooks/useDebounce";
 import ReactPaginate from "react-paginate";
 import { v4 } from "uuid";
 import Button from "../components/button/Button";
+import useSWRInfinite from "swr/infinite";
 
 const itemsPerPage = 20; // 20 films
 const MoviePage = () => {
@@ -94,7 +95,7 @@ const MoviePage = () => {
           ))}
       </div>
 
-      <div className="mt-10 select-none">
+      {/* <div className="mt-10 select-none">
         <ReactPaginate
           breakLabel="..."
           nextLabel="Next >"
@@ -105,6 +106,10 @@ const MoviePage = () => {
           renderOnZeroPageCount={null}
           className="pagination"
         />
+      </div> */}
+
+      <div className="mt-10 text-center ">
+        <Button>Load more</Button>
       </div>
     </div>
   );

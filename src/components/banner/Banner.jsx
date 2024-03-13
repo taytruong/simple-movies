@@ -56,7 +56,7 @@ function BannerItem({ item }) {
         <Button
           bgColor="primary"
           onClick={() => navigate(`/movie/${id}`)}
-          className="w-auto"
+          className="flex justify-center text-xl"
         >
           Watch
           <svg

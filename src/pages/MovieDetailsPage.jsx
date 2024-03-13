@@ -14,7 +14,7 @@ const MovieDetailsPage = () => {
 
   return (
     <div className="py-10">
-      <div className="w-full h-[600px] relative">
+      <div className="w-full h-[700px] relative">
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div
           className="w-full h-full bg-cover bg-no-repeat"
@@ -23,7 +23,7 @@ const MovieDetailsPage = () => {
           }}
         ></div>
       </div>
-      <div className="w-full h-[500px] max-w-[800px] mx-auto -mt-[200px] relative z-10 pb-10">
+      <div className="w-full h-[550px] max-w-[800px] mx-auto -mt-[300px] relative z-10 pb-10">
         <img
           src={tmdbAPI.imageOriginal(poster_path)}
           className="w-full h-full object-cover rounded-xl"
@@ -48,9 +48,12 @@ const MovieDetailsPage = () => {
       <p className="text-center leading-relaxed max-w-[600px] mx-auto mb-10">
         {overview}
       </p>
-      <MovieCredits></MovieCredits>
-      <MovieVideos></MovieVideos>
-      <MovieSimilar></MovieSimilar>
+      <MovieOptimize type="credits"></MovieOptimize>
+      <MovieOptimize type="videos"></MovieOptimize>
+      <MovieOptimize type="similar"></MovieOptimize>
+      {/* <MovieCredits></MovieCredits> */}
+      {/* <MovieVideos></MovieVideos> */}
+      {/* <MovieSimilar></MovieSimilar> */}
     </div>
   );
 };
@@ -88,14 +91,14 @@ function MovieVideos() {
   if (!data) return null;
   const { results } = data;
   if (!results || results.length <= 0) return null;
-  console.log("🚀 ~ MovieVideos ~ data:", data);
+  // console.log("🚀 ~ MovieVideos ~ data:", data);
 
   return (
     <div className="py-10">
       <div className="flex flex-cols-2 gap-5">
         {results.slice(0, 2).map((item) => (
           <div key={item.id} className="w-full">
-            <h3 className="mb-5 text-xl font-medium p-3 bg-secondary inline-block rounded-lg">
+            <h3 className="mb-5 text-xl font-medium p-3 bg-primary inline-block rounded-lg">
               {item.name}
             </h3>
             <div key={item.id} className="w-full aspect-video">
@@ -141,4 +144,77 @@ function MovieSimilar() {
   );
 }
 
+// **** Optimize code for 3 functions: MovieCredits, MovieVideos, MovieSimilar
+function MovieOptimize({ type = "videos" }) {
+  const { movieId } = useParams();
+  const { data } = useSWR(tmdbAPI.getMovieInfo(movieId, type), fetcher);
+  if (!data) return null;
+
+  if (type === "credits") {
+    const { cast } = data;
+    if (!cast || cast.length <= 0) return null;
+    return (
+      <div className="py-5">
+        <h2 className="text-center text-3xl mb-10 font-medium">Casts</h2>
+        <div className="grid grid-cols-4 gap-5">
+          {cast.slice(0, 4).map((item) => (
+            <div className="cast-item mx-auto" key={item.id}>
+              <img
+                src={tmdbAPI.imageOriginal(item.profile_path)}
+                className="w-full h-[450px] object-cover rounded-lg mb-3"
+                alt=""
+              />
+              <h3 className="text-xl font-medium">{item.name}</h3>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  } else {
+    const { results } = data;
+    if (!results || results.length <= 0) return null;
+    if (type === "videos")
+      return (
+        <div className="py-10">
+          <div className="flex flex-cols-2 gap-5 mt-10">
+            {results.slice(0, 2).map((item) => (
+              <div key={item.id} className="w-full">
+                <h3 className="mb-5 text-xl font-medium p-3 bg-primary inline-block rounded-lg">
+                  {item.name}
+                </h3>
+                <div key={item.id} className="w-full aspect-video">
+                  <iframe
+                    width="1214"
+                    height="683"
+                    src={`https://www.youtube.com/embed/${item.key}`}
+                    title="Youtube"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    className="w-full h-full object-fill rounded-xl"
+                  ></iframe>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    if (type === "similar")
+      return (
+        <div className="py-10">
+          <div className="movie-list">
+            <h2 className="text-3xl font-medium mb-10">Similar movies</h2>
+            <Swiper grabCursor={true} spaceBetween={40} slidesPerView={"auto"}>
+              {results.length > 0 &&
+                results.map((item) => (
+                  <SwiperSlide key={item.id}>
+                    <MovieCard item={item}></MovieCard>
+                  </SwiperSlide>
+                ))}
+            </Swiper>
+          </div>
+        </div>
+      );
+  }
+}
 export default MovieDetailsPage;

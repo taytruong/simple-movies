@@ -3,9 +3,11 @@
 
 
 
+![2](https://github.com/taytruong/reactjs-movies/assets/80972492/37e1b955-d39b-4074-ab06-1d0ec50c045d)
 
 
 
+![3](https://github.com/taytruong/reactjs-movies/assets/80972492/06cec0b1-012a-49b8-bbe2-d398f9f45da0)
 
 
 

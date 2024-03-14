@@ -7,8 +7,7 @@
 
 
 
-![Uploading 3.png…]()
-
+![3](https://github.com/taytruong/reactjs-movies/assets/80972492/bcf0182c-83a1-40ee-a06c-84a556f2c533)
 
 
 

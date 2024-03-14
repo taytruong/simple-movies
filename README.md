@@ -1,3 +1,15 @@
+
+![1](https://github.com/taytruong/reactjs-movies/assets/80972492/b0f46748-f5bf-4eee-846e-8e4cb70a65d9)
+
+
+
+
+
+
+
+
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

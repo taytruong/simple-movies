@@ -12,7 +12,7 @@ const MovieList = ({ type = "now_playing" }) => {
   const movies = data?.results || [];
 
   return (
-    <div className="movie-list ">
+    <div className="movie-list">
       {isLoading && (
         <>
           <Swiper grabCursor={true} spaceBetween={40} slidesPerView={"auto"}>
